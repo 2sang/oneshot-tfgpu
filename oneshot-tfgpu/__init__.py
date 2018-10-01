@@ -1,1 +1,1 @@
-name = 'oneshot-tfgpu'
+name = 'tfgpu'
