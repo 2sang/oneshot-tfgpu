@@ -1,6 +1,7 @@
 import os
 import docker
 import yaml
+from subprocess import call
 
 
 def check_prerequisites():
@@ -14,9 +15,7 @@ def install():
     if os.path.exists('~/.tfgpu'):
         return True;
     with open('~/.tfgpu', 'w') as tfgpu_f:
-        tfgpu_f.write("")
-
-
+        tfgpu_f.write("alias ")
 
 def main():
     # Todo: Sanity check for --runtime=nvidia option Mon 01 Oct 2018 12:42:35 PM KST
