@@ -15,16 +15,19 @@ def test_check_prerequisite():
 
 
 def test_set_shell_command():
+    if os.path.exists(os.path.expanduser('~/.tfgpu')):
+        os.remove(os.path.expanduser'~/.tfgpu')
+
     assert not os.path.exists(os.path.expanduser('~/.tfgpu'))
     installed = install.set_shell_commands()
     assert installed
-    assert os.path.exists('~/.tfgpu')
     with open(os.path.expanduser('~/.bashrc'), 'r') as tfgpu:
         lines = tfgpu.readlines()
         assert 'source ~/.tfgpu\n' in lines
 
     # Teardown
     os.remove('~/.tfgpu')
+    assert os.path.exists('~/.tfgpu')
     lines.remove('source ~/.tfgpu\n')
     with open(os.path.expanduser('~/.bashrc'), 'w') as brc:
         for line in lines:

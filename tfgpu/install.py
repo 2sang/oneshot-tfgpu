@@ -9,10 +9,14 @@ import subprocess
 
 
 # These need test too
-HOST_PYTHON_VERSION = 'python3'
+HOST_PYTHON = 'python3'
 RUNFILE = 'run.py'
-INSTALL_FILEPATH = os.path.realpath(__file__)
-RUNPATH = os.path.join(os.path.dirname(INSTALL_FILEPATH), RUNFILE)
+DOTFILE = '.tfgpu'
+
+INSTALLFILE_PATH = os.path.realpath(__file__)
+RUNFILE_PATH = os.path.join(os.path.dirname(INSTALLFILE_PATH), RUNFILE)
+TFGPU_DOTFILE_PATH = os.path.expanduser(DOTFILE)  # Default: ~/.tfgpu
+BASHRC_PATH = os.path.expanduser('~/.bashrc')
 
 
 def check_prerequisites():
@@ -30,11 +34,11 @@ def load_conf(yaml_path='./conf.yaml'):
 
 
 def set_shell_commands():
-    with open(os.path.expanduser('~/.tfgpu'), 'w') as tfgpu:
-        tfgpu.write('alias tfgpu="python3 ' + RUNPATH + '"')
-    with open(os.path.expanduser('~/.bashrc'), 'a') as brc:
-        brc.write('source ~/.tfgpu')
-    subprocess.call(['source', '~/.bashrc'])
+    with open(TFGPU_DOTFILE_PATH, 'w') as tfgpu:
+        tfgpu.write('alias tfgpu="' + HOST_PYTHON + ' ' + RUNFILE_PATH + '"')
+    with open(BASHRC_PATH, 'a') as bashrc:
+        bashrc.write('source ' + TFGPU_DOTFILE_PATH)
+    subprocess.run(['source', TFGPU_DOTFILE_PATH])
 
 
 def install(conf):

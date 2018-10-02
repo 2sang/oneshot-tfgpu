@@ -1,5 +1,5 @@
 def main():
-    pass
+    print("tfgpu main")
 
 
 if __name__ == "__main__":
