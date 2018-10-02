@@ -1,11 +1,10 @@
 # Oneshot-tfgpu
 ### Todo
-- Fully packaged
-- oneshot install with console answer
+- oneshot install with only a few configuration
 - make tfgpu as direct shell command 
-- argparse
+- argparse(or abseil)
 - Exception check for every scenario
 - Automate docker, nvidia-docker installation process 
 - Image reset from corrupted ones
-- Docker commit, other common commands
-- Docs for common practices, such as port forwarding, etc.
+- Docker commit, remove volume or supports other common commands.
+- Docs for common practices, like ssh port forwarding, etc.
