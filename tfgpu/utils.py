@@ -21,7 +21,7 @@ def line_exists_in_file(filepath, line):
 
 
 def remove_line_from_file(filepath, line):
-    if not os.exists(filepath):
+    if not os.path.exists(filepath):
         print("No such file: {}".format(filepath))
         return False
 
