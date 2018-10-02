@@ -1,7 +1,7 @@
 import os
 import pytest
 import tfgpu.install as install
-from tfgpu.install import RUNPATH
+from tfgpu.install import RUNFILE_PATH, BASHRC_PATH, TFGPU_DOTFILE_PATH
 
 
 def test_load_conf():
@@ -15,20 +15,20 @@ def test_check_prerequisite():
 
 
 def test_set_shell_command():
-    if os.path.exists(os.path.expanduser('~/.tfgpu')):
-        os.remove(os.path.expanduser'~/.tfgpu')
+    if os.path.exists(TFGPU_DOTFILE_PATH):
+        os.remove(TFGPU_DOTFILE_PATH)
 
-    assert not os.path.exists(os.path.expanduser('~/.tfgpu'))
+    assert not os.path.exists(TFGPU_DOTFILE_PATH)
     installed = install.set_shell_commands()
     assert installed
-    with open(os.path.expanduser('~/.bashrc'), 'r') as tfgpu:
+    with open(BASHRC_PATH, 'r') as tfgpu:
         lines = tfgpu.readlines()
-        assert 'source ~/.tfgpu\n' in lines
+        assert 'source ' + TFGPU_DOTFILE_PATH + '\n' in lines
 
     # Teardown
-    os.remove('~/.tfgpu')
-    assert os.path.exists('~/.tfgpu')
-    lines.remove('source ~/.tfgpu\n')
-    with open(os.path.expanduser('~/.bashrc'), 'w') as brc:
+    os.remove(TFGPU_DOTFILE_PATH)
+    assert not os.path.exists(TFGPU_DOTFILE_PATH)
+    lines.remove('source ' + TFGPU_DOTFILE_PATH + '\n')
+    with open(BASHRC_PATH, 'w') as brc:
         for line in lines:
             brc.write(line)

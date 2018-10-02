@@ -5,7 +5,7 @@ from __future__ import print_function
 import os
 import docker
 import yaml
-import subprocess
+import utils
 
 
 # These need test too
@@ -16,6 +16,7 @@ DOTFILE = '.tfgpu'
 INSTALLFILE_PATH = os.path.realpath(__file__)
 RUNFILE_PATH = os.path.join(os.path.dirname(INSTALLFILE_PATH), RUNFILE)
 TFGPU_DOTFILE_PATH = os.path.expanduser(DOTFILE)  # Default: ~/.tfgpu
+# Todo: Consider OS dependent rc file Tue Oct  2 09:05:25 2018
 BASHRC_PATH = os.path.expanduser('~/.bashrc')
 
 
@@ -35,10 +36,11 @@ def load_conf(yaml_path='./conf.yaml'):
 
 def set_shell_commands():
     with open(TFGPU_DOTFILE_PATH, 'w') as tfgpu:
-        tfgpu.write('alias tfgpu="' + HOST_PYTHON + ' ' + RUNFILE_PATH + '"')
+        tfgpu.write('alias tfgpu="' + HOST_PYTHON + ' ' + RUNFILE_PATH + '"\n')
     with open(BASHRC_PATH, 'a') as bashrc:
-        bashrc.write('source ' + TFGPU_DOTFILE_PATH)
-    subprocess.run(['source', TFGPU_DOTFILE_PATH])
+        bashrc.write('source ' + TFGPU_DOTFILE_PATH + '\n')
+    utils.shell_source(TFGPU_DOTFILE_PATH)
+    return True
 
 
 def install(conf):
