@@ -1,7 +1,8 @@
 # Oneshot-tfgpu
 ### Todo
-- oneshot install with only a few configuration
-- make tfgpu as direct shell command 
+- Oneshot install with only a few configuration
+- Able to store multiple customized image instances
+- Make tfgpu as direct shell command 
 - argparse(or abseil)
 - Exception check for every scenario
 - Automate docker, nvidia-docker installation process 
