@@ -2,6 +2,9 @@ import os
 import pytest
 import tfgpu.install as install
 from tfgpu.install import RUNFILE_PATH, BASHRC_PATH, TFGPU_DOTFILE_PATH
+from tfgpu.utils import line_exists_in_file
+
+TFGPU_SOURCE_STRING = 'source ' + TFGPU_DOTFILE_PATH + '\n'
 
 
 def test_load_conf():
@@ -19,21 +22,17 @@ def test_set_shell_command():
         os.remove(TFGPU_DOTFILE_PATH)
 
     assert not os.path.exists(TFGPU_DOTFILE_PATH)
-    installed = install.set_shell_commands()
-    assert installed
-    with open(BASHRC_PATH, 'r') as bashrc:
-        lines = bashrc.readlines()
-        assert 'source ' + TFGPU_DOTFILE_PATH + '\n' in lines
+    install.set_shell_commands()
+    assert os.path.exists(TFGPU_DOTFILE_PATH)
+    assert line_exists_in_file(BASHRC_PATH, TFGPU_SOURCE_STRING)
 
 
 def test_teardown_shell_command():
-    with open(BASHRC_PATH, 'r') as tfgpu:
-        lines = tfgpu.readlines()
-        assert 'source ' + TFGPU_DOTFILE_PATH + '\n' in lines
     # Teardown
     assert os.path.exists(TFGPU_DOTFILE_PATH)
+    assert line_exists_in_file(BASHRC_PATH, TFGPU_SOURCE_STRING)
     os.remove(TFGPU_DOTFILE_PATH)
-    
+
     assert not os.path.exists(TFGPU_DOTFILE_PATH)
     lines.remove('source ' + TFGPU_DOTFILE_PATH + '\n')
     with open(BASHRC_PATH, 'w') as brc:

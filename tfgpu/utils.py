@@ -14,7 +14,18 @@ def shell_source(script_path):
     os.environ.update(env)
 
 
+def line_exists_in_file(filepath, line):
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
+        return line in lines
+
+
 def remove_line_from_file(filepath, line):
+    if not os.exists(filepath):
+        print("No such file: {}".format(filepath))
+        return False
+
+    # Read lines, remove target string from file
     with open(filepath, 'r') as f:
         lines = f.readlines()
         if line in lines:
@@ -22,6 +33,7 @@ def remove_line_from_file(filepath, line):
         else:
             return False
 
+    # Rewrite file
     with open(filepath, 'w') as f:
         for line in lines:
             f.write(line)

@@ -40,16 +40,12 @@ def set_shell_commands():
     with open(BASHRC_PATH, 'a') as bashrc:
         bashrc.write('source ' + TFGPU_DOTFILE_PATH + '\n')
     utils.shell_source(TFGPU_DOTFILE_PATH)
-    return True
 
 
 def teardown_shell_commands():
     removal_string = 'source ' + TFGPU_DOTFILE_PATH + '\n'
-    lines = utils.remove_line_from_file(BASHRC_PATH, removal_string)
+    utils.remove_line_from_file(BASHRC_PATH, removal_string)
     os.remove(TFGPU_DOTFILE_PATH)
-    with open(BASHRC_PATH, 'w') as brc:
-        for line in lines:
-            brc.write(line)
 
 
 def install(conf):
