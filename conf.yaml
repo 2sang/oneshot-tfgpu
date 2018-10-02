@@ -1,7 +1,6 @@
 general:
-    repository: tensorflow/tensorflow
-    # See available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
-    tag: latest-gpu-py3
+    repository: tensorflow/tensorflow 
+    tag: latest-gpu-py3 # See available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
     container_name: tfgpu
     volume_name: tfgpu-volume
     host_mountpath: ~/
