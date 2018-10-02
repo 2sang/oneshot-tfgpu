@@ -5,19 +5,19 @@ from __future__ import print_function
 import os
 import docker
 import yaml
-import utils
-
+import tfgpu.utils as utils
 
 # These need test too
 HOST_PYTHON = 'python3'
 RUNFILE = 'run.py'
-DOTFILE = '.tfgpu'
+DOTFILE = '~/.tfgpu'
+# Todo: Consider OS dependent rc file Tue Oct  2 09:05:25 2018
+BASHRC = '~/.bashrc'
 
 INSTALLFILE_PATH = os.path.realpath(__file__)
 RUNFILE_PATH = os.path.join(os.path.dirname(INSTALLFILE_PATH), RUNFILE)
 TFGPU_DOTFILE_PATH = os.path.expanduser(DOTFILE)  # Default: ~/.tfgpu
-# Todo: Consider OS dependent rc file Tue Oct  2 09:05:25 2018
-BASHRC_PATH = os.path.expanduser('~/.bashrc')
+BASHRC_PATH = os.path.expanduser(BASHRC)
 
 
 def check_prerequisites():
@@ -41,6 +41,15 @@ def set_shell_commands():
         bashrc.write('source ' + TFGPU_DOTFILE_PATH + '\n')
     utils.shell_source(TFGPU_DOTFILE_PATH)
     return True
+
+
+def teardown_shell_commands():
+    removal_string = 'source ' + TFGPU_DOTFILE_PATH + '\n'
+    lines = utils.remove_line_from_file(BASHRC_PATH, removal_string)
+    os.remove(TFGPU_DOTFILE_PATH)
+    with open(BASHRC_PATH, 'w') as brc:
+        for line in lines:
+            brc.write(line)
 
 
 def install(conf):

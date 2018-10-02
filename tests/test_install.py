@@ -21,12 +21,19 @@ def test_set_shell_command():
     assert not os.path.exists(TFGPU_DOTFILE_PATH)
     installed = install.set_shell_commands()
     assert installed
+    with open(BASHRC_PATH, 'r') as bashrc:
+        lines = bashrc.readlines()
+        assert 'source ' + TFGPU_DOTFILE_PATH + '\n' in lines
+
+
+def test_teardown_shell_command():
     with open(BASHRC_PATH, 'r') as tfgpu:
         lines = tfgpu.readlines()
         assert 'source ' + TFGPU_DOTFILE_PATH + '\n' in lines
-
     # Teardown
+    assert os.path.exists(TFGPU_DOTFILE_PATH)
     os.remove(TFGPU_DOTFILE_PATH)
+    
     assert not os.path.exists(TFGPU_DOTFILE_PATH)
     lines.remove('source ' + TFGPU_DOTFILE_PATH + '\n')
     with open(BASHRC_PATH, 'w') as brc:

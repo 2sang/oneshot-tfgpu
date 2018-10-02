@@ -9,6 +9,20 @@ def shell_source(script_path):
     settings some environment variables. Here is a way to do it."""
     pipe = subprocess.Popen(". %s; env" % script_path,
                             stdout=subprocess.PIPE, shell=True)
-    output = pipe.communicate()[0]
+    output = pipe.communicate()[0].decode('utf-8')
     env = dict((line.split("=", 1) for line in output.splitlines()))
     os.environ.update(env)
+
+
+def remove_line_from_file(filepath, line):
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
+        if line in lines:
+            lines.remove(line)
+        else:
+            return False
+
+    with open(filepath, 'w') as f:
+        for line in lines:
+            f.write(line)
+    return True
