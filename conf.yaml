@@ -1,10 +1,11 @@
 general:
-    repository: tensorflow/tensorflow 
-    latest_config: i1
-    num_images: 1
+    latest_config: defaults
+    num_images: 0
 images:
-    - i1:
-        tag: latest-gpu-py3 # See available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
+    - defaults:
+        repository: tensorflow/tensorflow 
+        # See available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
+        tag: latest-gpu-py3 
         volume_name: tfgpu-volume
         host_mountpath: ~/
         container_mountpath: /notebooks

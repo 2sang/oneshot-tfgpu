@@ -3,6 +3,8 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import sys
+
 import docker
 import yaml
 import tfgpu.utils as utils
@@ -38,13 +40,13 @@ def build_shell_commands():
         tfgpu.write('alias tfgpu="' + HOST_PYTHON + ' ' + RUNFILE_PATH + '"\n')
     with open(BASHRC_PATH, 'a') as bashrc:
         bashrc.write('source ' + TFGPU_DOTFILE_PATH + '\n')
-    utils.shell_source(TFGPU_DOTFILE_PATH)
 
 
 def teardown_shell_commands():
     removal_string = 'source ' + TFGPU_DOTFILE_PATH + '\n'
     utils.remove_line_from_file(BASHRC_PATH, removal_string)
-    os.remove(TFGPU_DOTFILE_PATH)
+    if os.path.exists(TFGPU_DOTFILE_PATH):
+        os.remove(TFGPU_DOTFILE_PATH)
 
 
 def install(conf):
@@ -56,13 +58,15 @@ def install(conf):
 
 
 def main(argv):
-    print("argv: {}".format(argv))
+    if 'uninstall' in argv:
+        teardown_shell_commands()
+        return
     # Todo: Sanity check for --runtime=nvidia option Mon 01 Oct 2018
     if not (check_prerequisites()):
         print("prerequisites not satistied")
         return
     conf = load_conf('conf.yaml')
-    # install(conf)
+    install(conf)
 
 
 class PrerequisiteNotSatisfied(Exception):
@@ -70,4 +74,4 @@ class PrerequisiteNotSatisfied(Exception):
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)

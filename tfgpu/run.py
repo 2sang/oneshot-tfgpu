@@ -6,6 +6,9 @@ import sys
 
 from absl import app, flags, logging
 
+import utils
+
+MODULE_EXTENSIONS = ['.py']
 FLAGS = flags.FLAGS
 defaults = {
     'tag': 'latest-gpu-py3',
@@ -25,8 +28,12 @@ class TfgpuImage:
 
 
 def main(argv):
-    print("argv: {}".format(argv))
+    available_commands = ['init', 'run', 'commit', 'set', 'ps', 'ls']
+    command = argv[1]
+    if command not in available_commands:
+        print("not available command: {}".format(command))
+        return;
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)

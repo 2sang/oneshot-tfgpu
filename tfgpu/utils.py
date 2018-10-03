@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-# From https://stackoverflow.com/questions/7040592/calling-the-source-
+# Script from https://stackoverflow.com/questions/7040592/calling-the-source-
 # command-from-subprocess-popen/12708396
 def shell_source(script_path):
     """Sometime you want to emulate the action of "source" in bash,
