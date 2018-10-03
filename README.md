@@ -1,5 +1,5 @@
 # oneshot-tfgpu:
-### Yet another docker management tool only for tensorflow-gpu & jupyter notebook images
+### Yet another docker management tool for tensorflow-gpu & jupyter notebook
 ### Features
 - Oneshot install only with a few configuration
 - Able to store multiple customized image instances
