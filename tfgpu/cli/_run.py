@@ -1,8 +1,16 @@
-from absl import flags
+import sys
 
+from absl import app, flags, logging
 
-def execute():
-    print("this is run")
+FLAGS = flags.FLAGS
+
+flags.DEFINE_string("tag", "ss", "default tag tag")
+
+def main(argv):
+    print("argv: {}".format(argv))
+    FLAGS(argv)
+    print("this is it, ")
+    print("FLAGS.tag: {}".format(FLAGS.tag))
 
 # flags.DEFINE_string('tag', defaults['tag'],
 #                     'image tag name(ex. latest-gpu-py3)')
