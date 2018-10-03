@@ -1,4 +1,5 @@
 import os
+import yaml
 import subprocess
 
 
@@ -38,3 +39,8 @@ def remove_line_from_file(filepath, line):
         for line in lines:
             f.write(line)
     return True
+
+
+def load_conf(yaml_path='./conf.yaml'):
+    with open(yaml_path, 'r') as f:
+        return dict(yaml.load(f))

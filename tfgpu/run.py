@@ -2,37 +2,29 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import glob
 import sys
+from os.path import dirname, basename, isfile
 
 from absl import app, flags, logging
 
-import utils
-
-MODULE_EXTENSIONS = ['.py']
-FLAGS = flags.FLAGS
-defaults = {
-    'tag': 'latest-gpu-py3',
-    'volume_name': 'tfgpu-volume'
-}
-
-flags.DEFINE_string('tag', defaults['tag'],
-                    'image tag name(ex. latest-gpu-py3)')
-flags.DEFINE_string('vname', defaults['volume_name'],
-                    'specify the volume name to mount')
-
-
-class TfgpuImage:
-    """Tfgpu image class def"""
-    def __init__(self):
-        pass
+from tfgpu.cli import *
+import tfgpu.exceptions as exep
+import tfgpu.utils as utils
 
 
 def main(argv):
-    available_commands = ['init', 'run', 'commit', 'set', 'ps', 'ls']
+
+    if len(argv) == 1:
+        raise exep.CommandNotSpecified
+        # Todo: logging.log Wed Oct  3 21:06:09 2018
+    
     command = argv[1]
-    if command not in available_commands:
-        print("not available command: {}".format(command))
-        return;
+    modules = glob.glob(dirname(__file__) + "/cli/*.py")
+    command_modules = {basename(f)[1:-3]: eval(basename(f)[:-3])
+                       for f in modules
+                       if isfile(f) and not f.endswith('__init__.py')}
+    command_modules[command].execute()
 
 
 if __name__ == "__main__":

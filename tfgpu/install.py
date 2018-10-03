@@ -5,8 +5,6 @@ from __future__ import print_function
 import os
 import sys
 
-import docker
-import yaml
 import tfgpu.utils as utils
 
 # These need test too
@@ -28,11 +26,6 @@ def check_prerequisites():
         raise PrerequisiteNotSatisfied
     # check nvidia driver dependencies
     return True
-
-
-def load_conf(yaml_path='./conf.yaml'):
-    with open(yaml_path, 'r') as f:
-        return dict(yaml.load(f))
 
 
 def build_shell_commands():
@@ -65,8 +58,7 @@ def main(argv):
     if not (check_prerequisites()):
         print("prerequisites not satistied")
         return
-    conf = load_conf('conf.yaml')
-    install(conf)
+    install()
 
 
 class PrerequisiteNotSatisfied(Exception):
