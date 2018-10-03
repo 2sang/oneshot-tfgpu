@@ -3,8 +3,8 @@ from __future__ import division
 from __future__ import print_function
 
 import glob
-import sys
 from os.path import dirname, basename, isfile
+import sys
 
 from tfgpu.cli import *
 import tfgpu.exceptions as exep
@@ -18,22 +18,19 @@ class Command:
                        if isfile(f) and not f.endswith('__init__.py')}
 
     def __init__(self, argv):
-        if len(argv) == 1:
+        if len(argv) == 0:
             raise exep.CommandNotSpecified
-            # Todo: logging.log Wed Oct  3 21:06:09 2018
 
-        self.command, self.options = argv[1], argv[2:]
+        self.command, self.options = argv[0], argv[1:]
 
         if self.command not in self.command_modules.keys():
             raise exep.WrongCommandName
 
         self.module = self.command_modules[self.command]
         self.module_filename = '_' + self.command + '.py'
-        print("self.module_filename: {}".format(self.module_filename))
-        print("self.options: {}".format(self.options))
 
     def execute(self):
-        self.module.main(list(self.module_filename) + list(self.options))
+        self.module.main([self.module_filename, *self.options])
 
 
 def main(argv):

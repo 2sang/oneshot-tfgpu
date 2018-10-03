@@ -1,6 +1,9 @@
 # oneshot-tfgpu:
 ### Yet another docker management tool for tensorflow-gpu & jupyter notebook
-### Features
+
+### Todos & Features
+- CircleCI
+- how to make them install this, install.py doesn't work as our intention
 - Oneshot install only with a few configuration
 - Able to store multiple customized image instances
 - Make tfgpu as direct shell command 
@@ -9,7 +12,7 @@
 - Automate docker, nvidia-docker installation process 
 - Image reset from corrupted ones
 - Docker commit, remove volume or supports other common commands.
-- Docs for common practices, like ssh port forwarding, etc.
+- Docs for common use cases like ssh port forwarding, etc.
 
 ### Getting Started
 ```bash

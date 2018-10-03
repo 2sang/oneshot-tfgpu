@@ -1,16 +1,9 @@
 import os
 import pytest
 import tfgpu.install as install
-from tfgpu.install import RUNFILE_PATH, BASHRC_PATH, TFGPU_DOTFILE_PATH
+from tfgpu.install import RUNFILE_PATH, BASHRC_PATH
+from tfgpu.install import TFGPU_DOTFILE_PATH, TFGPU_SOURCE_STRING
 from tfgpu.utils import line_exists_in_file, remove_line_from_file
-
-TFGPU_SOURCE_STRING = 'source ' + TFGPU_DOTFILE_PATH + '\n'
-
-
-def test_load_conf():
-    d = install.load_conf()
-    print("d: {}".format(d))
-    assert type(d) == dict
 
 
 def test_check_prerequisite():
@@ -36,4 +29,3 @@ def test_teardown_shell_command():
     assert not os.path.exists(TFGPU_DOTFILE_PATH)
     if remove_line_from_file(BASHRC_PATH, TFGPU_SOURCE_STRING):
         assert not line_exists_in_file(BASHRC_PATH, TFGPU_SOURCE_STRING)
-
