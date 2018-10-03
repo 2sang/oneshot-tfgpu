@@ -1,10 +1,14 @@
 general:
     repository: tensorflow/tensorflow 
-    tag: latest-gpu-py3 # See available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
-    container_name: tfgpu
-    volume_name: tfgpu-volume
-    host_mountpath: ~/
-    container_mountpath: /notebooks
-    portforwarding: yes
-    local_port: 9206
-    jupyter_port: 8888
+    latest_config: i1
+    num_images: 1
+images:
+    - i1:
+        tag: latest-gpu-py3 # See available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
+        volume_name: tfgpu-volume
+        host_mountpath: ~/
+        container_mountpath: /notebooks
+        portforwarding: yes
+        local_port: 9206
+        jupyter_port: 8888
+

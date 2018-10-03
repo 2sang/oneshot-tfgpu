@@ -24,8 +24,7 @@ def check_prerequisites():
     # TODO: tfgpu dependencies(pip2, pip3)
     if False:
         raise PrerequisiteNotSatisfied
-
-    # nvidia driver dependencies
+    # check nvidia driver dependencies
     return True
 
 
@@ -34,7 +33,7 @@ def load_conf(yaml_path='./conf.yaml'):
         return dict(yaml.load(f))
 
 
-def set_shell_commands():
+def build_shell_commands():
     with open(TFGPU_DOTFILE_PATH, 'w') as tfgpu:
         tfgpu.write('alias tfgpu="' + HOST_PYTHON + ' ' + RUNFILE_PATH + '"\n')
     with open(BASHRC_PATH, 'a') as bashrc:
@@ -52,17 +51,18 @@ def install(conf):
     if os.path.exists(os.path.expanduser('~/.tfgpu')):
         print("tfgpu exists. exit")
         return False
-    set_shell_commands()
+    build_shell_commands()
     return True
 
 
-def main():
+def main(argv):
+    print("argv: {}".format(argv))
     # Todo: Sanity check for --runtime=nvidia option Mon 01 Oct 2018
     if not (check_prerequisites()):
         print("prerequisites not satistied")
         return
     conf = load_conf('conf.yaml')
-    install(conf)
+    # install(conf)
 
 
 class PrerequisiteNotSatisfied(Exception):
