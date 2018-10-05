@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="Tfgpu",
+    name="tfgpu",
     version="0.1",
     packages=find_packages(),
-    entry_points={"console_scripts": ["tfgpu=tfgpu.command_line:main"]},
+    entry_points={"console_scripts": ["tfgpu=tfgpu.app:main"]},
 
     install_requires=[
         'docker>=3.4',

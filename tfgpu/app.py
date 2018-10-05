@@ -38,12 +38,12 @@ class Command:
         self.module.main([self.module_filename, *self.options], client)
 
 
-def main(argv):
-    command = Command(argv)
+def main():
+    if len(sys.argv) == 1:
+        raise exep.CommandNotSpecified
+    command = Command(sys.argv[1:])
     command.execute()
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        raise exep.CommandNotSpecified
-    main(sys.argv[1:])
+    main()
