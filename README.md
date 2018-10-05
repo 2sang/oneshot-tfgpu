@@ -1,4 +1,4 @@
-# oneshot-tfgpu:
+# oneshot-tfgpu(WORK IN PROGRESS):
 ### Yet another docker management tool for tensorflow-gpu & jupyter notebook
 
 ### Todos & Features
