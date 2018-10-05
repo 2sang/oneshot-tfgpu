@@ -14,7 +14,7 @@ setup(
 
     author="Sang Su Lee",
     author_email="sangsulee92@gmail.com",
-    description="Yet another docker command line tool for tensorflow",
+    description="Docker command line helper for tensorflow",
     license="MIT",
     keywords="docker tensorflow tensorflow-gpu",
 )
