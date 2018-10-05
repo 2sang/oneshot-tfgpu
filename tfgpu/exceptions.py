@@ -1,14 +1,16 @@
-
+import logging
 # Todo: Make sure writing the logs using logging package
 
 
 class CommandNotSpecified(Exception):
     """docstring for CommandNotSpecified"""
     def __init__(self):
+        logging.error("Command name should be specified.")
         pass
 
 
-class WrongCommandName(Exception):
+class NoSuchCommand(Exception):
     """docstring for CommandNotSpecified"""
-    def __init__(self):
+    def __init__(self, command_name):
         pass
+

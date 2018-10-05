@@ -7,6 +7,8 @@ import sys
 
 import tfgpu.utils as utils
 
+####### Install broken, should deal with run tfgpu command..
+
 # These need test too
 HOST_PYTHON = 'python3'
 RUNFILE = 'app.py'

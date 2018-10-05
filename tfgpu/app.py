@@ -3,8 +3,11 @@ from __future__ import division
 from __future__ import print_function
 
 import glob
+import logging
 from os.path import dirname, basename, isfile
 import sys
+
+import docker
 
 from tfgpu.cli import *
 import tfgpu.exceptions as exep
@@ -19,18 +22,20 @@ class Command:
 
     def __init__(self, argv):
         if len(argv) == 0:
-            raise exep.CommandNotSpecified
+            raise exep.CommandNotSpecified()
 
         self.command, self.options = argv[0], argv[1:]
 
         if self.command not in self.command_modules.keys():
-            raise exep.WrongCommandName
+            logging.error("No such command: {}".format(self.command))
+            raise exep.NoSuchCommand(self.command)
 
         self.module = self.command_modules[self.command]
         self.module_filename = '_' + self.command + '.py'
 
     def execute(self):
-        self.module.main([self.module_filename, *self.options])
+        client = docker.from_env()
+        self.module.main([self.module_filename, *self.options], client)
 
 
 def main(argv):
@@ -41,4 +46,4 @@ def main(argv):
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         raise exep.CommandNotSpecified
-    main(sys.argv)
+    main(sys.argv[1:])

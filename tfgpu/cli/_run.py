@@ -1,5 +1,6 @@
 import sys
 
+import docker
 from absl import app, flags, logging
 
 FLAGS = flags.FLAGS

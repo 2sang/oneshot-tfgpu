@@ -28,8 +28,8 @@ tfgpu init
 # Start a last image container
 tfgpu run
 
-# Start a container the image named '1'
-tfgpu run 1
+# Start a container the image named 'c1'
+tfgpu run c1
 
 # Set image '1' with other option(s), changes will be saved locally at conf.yaml
 tfgpu set 1 --tag=latest-gpu-py3
