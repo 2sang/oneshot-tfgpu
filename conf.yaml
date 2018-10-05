@@ -4,9 +4,9 @@ general:
 images:
     - defaults:
         repository: tensorflow/tensorflow 
-        # See available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
+        # See all available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
         tag: latest-gpu-py3 
-        volume_name: tfgpu-volume
+        attached_volume: tfgpu-volume
         host_mountpath: ~/
         container_mountpath: /notebooks
         portforwarding: yes

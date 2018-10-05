@@ -1,25 +1,29 @@
-import pytest
+import tfgpu.app as app
 import tfgpu.exceptions as exep
+import docker
+import pytest
 
-from tfgpu.app import Command
-
-
-@pytest.fixture
-def run_command():
-    return Command(['run'])
 
 @pytest.fixture
-def commit_command():
-    return Command(['commit'])
+def docker_client():
+    return docker.from_env()
 
-class TestCommandClass:
 
-    def test_run_command(self, run_command):
-        assert run_command.module_filename == '_run.py'
+def test_cli_arguments_class(docker_client):
+    cc = app.CliArguments(['_run.py', '-a'], docker_client)
+    assert cc.module_filename == '_run.py'
+    assert cc.options == ['-a']
 
-    def test_commit_command(self, commit_command):
-        assert commit_command.module_filename == '_commit.py'
-    
-    def test_raise_wrong_command_name_exception(self):
-        with pytest.raises(exep.NoSuchCommand):
-            Command(['Cool']).execute()
+
+def test_empty_constructor_raises_command_not_specified_exception():
+    with pytest.raises(exep.CommandNotSpecified):
+        app.Command()
+
+
+def test_wrong_command_invokes_no_such_command_exception():
+    with pytest.raises(exep.NoSuchCommand):
+        app.Command(['you'])
+
+
+def test_app_execute_function_returns_result():
+    assert app.Command(['run']).execute() is True

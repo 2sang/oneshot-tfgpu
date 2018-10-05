@@ -14,14 +14,22 @@ import tfgpu.exceptions as exep
 import tfgpu.utils as utils
 
 
+class CliArguments:
+    def __init__(self, args, client):
+        self.args = args
+        self.module_filename = self.args[0]
+        self.options = self.args[1:]
+        self.client = client
+
+
 class Command:
     modules = glob.glob(dirname(__file__) + "/cli/*.py")
     command_modules = {basename(f)[1:-3]: eval(basename(f)[:-3])
                        for f in modules
                        if isfile(f) and not f.endswith('__init__.py')}
 
-    def __init__(self, argv):
-        if len(argv) == 0:
+    def __init__(self, argv=None):
+        if not argv:
             raise exep.CommandNotSpecified()
 
         self.command, self.options = argv[0], argv[1:]
@@ -35,7 +43,10 @@ class Command:
 
     def execute(self):
         client = docker.from_env()
-        self.module.main([self.module_filename, *self.options], client)
+        cli_component = CliArguments([self.module_filename,
+                                     *self.options],
+                                     client)
+        return self.module.main(cli_component)
 
 
 def main():
