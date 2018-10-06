@@ -9,7 +9,8 @@ setup(
     install_requires=[
         'docker>=3.4',
         'pyyaml>=3.1',
-        'absl-py>=0.5'
+        'absl-py>=0.5',
+        'request>=1.0'
     ],
 
     author="Sang Su Lee",

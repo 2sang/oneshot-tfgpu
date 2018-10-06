@@ -55,6 +55,3 @@ class TestCommandClass:
         with pytest.raises(exep.NoSuchCommand):
             Command(['Cool']).execute()
 
-    def test_raise_wrong_option_name_exception(self):
-        with pytest.raises(exep.NoSuchCommand):
-            Command(['Cool']).execute()

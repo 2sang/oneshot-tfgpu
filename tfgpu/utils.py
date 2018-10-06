@@ -2,6 +2,8 @@ import os
 import yaml
 import subprocess
 
+import request
+
 
 # Script from https://stackoverflow.com/questions/7040592/calling-the-source-
 # command-from-subprocess-popen/12708396
@@ -44,3 +46,7 @@ def remove_line_from_file(filepath, line):
 def load_conf(yaml_path='./conf.yaml'):
     with open(yaml_path, 'r') as f:
         return dict(yaml.load(f))
+
+def load_available_tags():
+    
+    return ['latest-py3']

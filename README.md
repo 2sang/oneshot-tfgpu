@@ -3,13 +3,12 @@
 
 ### Todos & Features
 - CircleCI
-- how to make them install this, install.py doesn't work as our intention
 - Oneshot install only with a few configuration
-- Able to store multiple customized image instances
-- Make tfgpu as direct shell command 
-- argparse(or abseil)
-- Exception check for every scenario
-- Automate docker, nvidia-docker installation process 
+- Able to store multiple customized image instances -> But controls only one container
+- Make tfgpu as direct shell command  DONE
+- argparse(or abseil)  WIP
+- Exception check for every scenario  WIP
+- Automate docker, nvidia-docker installation process  WIP
 - Image reset from corrupted ones
 - Docker commit, remove volume or supports other common commands.
 - Docs for common use cases like ssh port forwarding, etc.
