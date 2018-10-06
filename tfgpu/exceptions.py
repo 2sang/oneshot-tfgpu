@@ -13,4 +13,3 @@ class NoSuchCommand(Exception):
     """docstring for CommandNotSpecified"""
     def __init__(self, command_name):
         pass
-

@@ -26,4 +26,4 @@ def test_wrong_command_invokes_no_such_command_exception():
 
 
 def test_app_execute_function_returns_result():
-    assert app.Command(['run']).execute() is True
+    assert app.Command(['run image1']).execute() is True

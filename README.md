@@ -13,6 +13,7 @@
 - Image reset from corrupted ones
 - Docker commit, remove volume or supports other common commands.
 - Docs for common use cases like ssh port forwarding, etc.
+- IT DOES NOT ALLOW MULTIPLE CONTAINERS
 
 ### Getting Started
 ```bash

@@ -48,6 +48,17 @@ class Command:
                                      client)
         return self.module.main(cli_component)
 
+    def clear_options(self):
+        self.options = None
+
+    def append_option(self, options):
+        if type(options) == list:
+            self.options += options
+        elif type(options) == str:
+            self.options.append(options)
+        else:
+            raise TypeError
+
 
 def main():
     if len(sys.argv) == 1:
