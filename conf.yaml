@@ -1,4 +1,5 @@
 general:
+    initialized: False
     mounted_image: default
     num_images: 1
 images:
@@ -9,6 +10,5 @@ images:
         attached_volume: tfgpu-volume
         host_mountpath: ~/
         container_mountpath: /notebooks
-        portforwarding: yes
         local_port: 9206
         jupyter_port: 8888

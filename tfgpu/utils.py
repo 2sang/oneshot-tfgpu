@@ -2,8 +2,20 @@ import os
 import yaml
 import subprocess
 
-import request
+import requests
+from bs4 import BeautifulSoup
 
+tensorflow_repository_url =\
+    'https://hub.docker.com/r/tensorflow/tensorflow/tags/'
+
+init_questions = {
+    'tag': 'Tag?',
+    'attached_volume': 'Name of the docker volume to mount?',
+    'host_mountpath': 'Host mountpath?',
+    'container_mountpath': 'Container mountpath?',
+    'local_port': 'local port to access notebook?',
+    'jupyter_port': 'notebook port?'
+}
 
 # Script from https://stackoverflow.com/questions/7040592/calling-the-source-
 # command-from-subprocess-popen/12708396
@@ -47,6 +59,21 @@ def load_conf(yaml_path='./conf.yaml'):
     with open(yaml_path, 'r') as f:
         return dict(yaml.load(f))
 
+
+def update_conf(config_dict, yaml_path='./conf.yaml'):
+    yaml.dump(config_dict, yaml_path, default_flow_style=False)
+
+
+# HARDCODED web scrapying script, should refactor somehow
 def load_available_tags():
-    
-    return ['latest-py3']
+    available_tags = []
+    page = requests.get(tensorflow_repository_url)
+    soup = BeautifulSoup(page.text, 'html.parser')
+    m1 = list(soup.body.div.main.children)[1]
+    m2 = list(m1.children)[1]
+    m3 = list(m2.children)[1]
+    m4 = m3.div.div.div.div
+    m5 = list(m4.children)[1:]
+    for m in m5:
+        available_tags.append(m.div.contents[0])
+    return available_tags
