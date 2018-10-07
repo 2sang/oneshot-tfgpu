@@ -4,23 +4,20 @@
 ### Todos & Features
 - CircleCI
 - Oneshot install only with a few configuration
-- Able to store multiple customized image instances -> But controls only one container
+- Stores multiple customized image instances -> restrict the number of countainer to one.
 - Make tfgpu as direct shell command  DONE
 - argparse(or abseil)  WIP
 - Exception check for every scenario  WIP
 - Automate docker, nvidia-docker installation process  WIP
-- Image reset from corrupted ones
+- Image reset corrupted ones
 - Docker commit, remove volume or supports other common commands.
 - Docs for common use cases like ssh port forwarding, etc.
-- IT DOES NOT ALLOW MULTIPLE CONTAINERS
 
 ### Getting Started
 ```bash
-git clone https://github.com/EpisysScience/oneshot-tfgpu && \
-cd oneshot-tfgpu && python3 -m tfgpu.install 
 ```
 
-### Usage
+### WIP
 ```bash
 # Init new config settings with a few Q/A
 tfgpu init
