@@ -25,7 +25,7 @@ def ask_init(conf):
         'local_port': 'local port to access notebook?',
         'jupyter_port': 'notebook port?'
     }
-    default_config = conf['default']
+    default_config = conf['images']['default']
     new_config = {}
     for config_key, question_string in questions.items():
         default_string = '(default: {}):'.format(default_config[config_key])

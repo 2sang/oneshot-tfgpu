@@ -1,3 +1,5 @@
+import unittest.mock as mock
+
 import tfgpu.app as app
 import tfgpu.exceptions as exep
 import docker
@@ -8,6 +10,7 @@ import pytest
 def docker_client():
     return docker.from_env()
 
+@pytest.fixture(autouse=True)
 
 def test_cli_arguments_class(docker_client):
     cc = app.CliArguments(['_run.py', '-a'], docker_client)
@@ -26,4 +29,5 @@ def test_wrong_command_invokes_no_such_command_exception():
 
 
 def test_app_execute_function_returns_result():
-    assert app.Command(['run', 'image1']).execute() is True
+    with mock.patch.object(__builtins__, 'input', lambda: ""):
+        assert app.Command(['run', 'image1']).execute() is True

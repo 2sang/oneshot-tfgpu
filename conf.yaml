@@ -3,7 +3,7 @@ general:
     mounted_image: default
     num_images: 1
 images:
-    - default:
+    default:
         repository: tensorflow/tensorflow 
         # See all available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
         tag: latest-gpu-py3 
