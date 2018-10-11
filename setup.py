@@ -9,7 +9,7 @@ setup(
     install_requires=[
         'docker>=3.4',
         'pyyaml>=3.1',
-        'absl-py>=0.5',
+        'fire>=0.1',
         'request>=1.0'
     ],
 
