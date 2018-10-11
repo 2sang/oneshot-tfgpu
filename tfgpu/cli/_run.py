@@ -25,6 +25,7 @@ def ask_init(conf):
         'local_port': 'local port to access notebook?',
         'jupyter_port': 'notebook port?'
     }
+
     default_config = conf['images']['default']
     new_config = {}
     for config_key, question_string in questions.items():
@@ -36,11 +37,11 @@ def ask_init(conf):
             new_config[config_key] = answer
 
 
-def main(cli_args):
+def main(cli_args, testmode=False):
     conf = utils.load_conf()
-    if not initialized(conf):
+    if not initialized(conf) and not testmode:
         ask_init(conf)
-    
+
     options = cli_args.options
     client = cli_args.client
     print("options: {}".format(options))
@@ -49,6 +50,6 @@ def main(cli_args):
     if not options:
         logging.warning("Specify image(tfgpu run [IMAGE_NAME])")
         logging.warning("To see available images: tfgpu image ls")
-        raise exep.CommandNotSpecified
+        raise exep.CommandTargetNotSpecified
 
     return True

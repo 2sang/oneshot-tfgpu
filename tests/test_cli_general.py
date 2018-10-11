@@ -4,6 +4,14 @@ import tfgpu.exceptions as exep
 from tfgpu.app import Command
 
 
+# TODO: factorize all commands with this fixture
+@pytest.fixture
+def make_command():
+    def _make_command(command_name):
+        return Command[command_name]
+    return _make_command
+
+
 @pytest.fixture
 def run_command():
     return Command(['run'])
@@ -50,8 +58,3 @@ class TestCommandClass:
 
     def test_init_command(self, init_command):
         assert init_command.module_filename == '_init.py'
-
-    def test_raise_wrong_command_name_exception(self):
-        with pytest.raises(exep.NoSuchCommand):
-            Command(['Cool']).execute()
-

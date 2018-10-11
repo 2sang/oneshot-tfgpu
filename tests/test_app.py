@@ -18,16 +18,3 @@ def test_cli_arguments_class(docker_client):
     assert cc.options == ['-a']
 
 
-def test_empty_constructor_raises_command_not_specified_exception():
-    with pytest.raises(exep.CommandNotSpecified):
-        app.Command()
-
-
-def test_wrong_command_invokes_no_such_command_exception():
-    with pytest.raises(exep.NoSuchCommand):
-        app.Command(['you'])
-
-
-def test_app_execute_function_returns_result():
-    with mock.patch.object(__builtins__, 'input', lambda: ""):
-        assert app.Command(['run', 'image1']).execute() is True

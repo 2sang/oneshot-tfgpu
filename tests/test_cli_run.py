@@ -16,9 +16,7 @@ def run_command_with_default_image():
     return Command(['run', 'default'])
 
 
-def test_raise_command_not_specified(run_command):
-    with pytest.raises(exep.CommandNotSpecified):
-        run_command.execute()
+
 
 def test_initialized():
     conf = utils.load_conf()

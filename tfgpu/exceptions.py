@@ -9,6 +9,13 @@ class CommandNotSpecified(Exception):
         pass
 
 
+class CommandTargetNotSpecified(Exception):
+    """docstring for CommandTargetNotSpecified"""
+    def __init__(self):
+        logging.error("Command target should be specified.")
+        pass
+
+
 class NoSuchCommand(Exception):
     """docstring for CommandNotSpecified"""
     def __init__(self, command_name):

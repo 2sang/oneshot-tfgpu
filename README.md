@@ -2,7 +2,7 @@
 ### Yet another docker management tool for tensorflow-gpu & jupyter notebook
 
 ### Todos & Features
-- CircleCI
+- CircleCI, PyInquirer, python-fire
 - Oneshot install only with a few configuration
 - Stores multiple customized image instances -> restrict the number of countainer to one.
 - Make tfgpu as direct shell command  DONE
