@@ -11,40 +11,45 @@ import fire
 
 import tfgpu.utils as utils
 
+def print_usage():
+    print("Usage: tfgpu <command> <options>")
 
-def _run():
-    print("this is run function")
+def check_initialized():
+    conf = utils.load_conf()
+    return conf['general']['initialized']
 
+def run_container(image):
+
+def _run(image='default'):
+    if not check_initialized():
+        return _init()
+    
+    docker_client = docker.from_env()
+    run_container(image)
+    return True
 
 def _ls():
-    print("this is ls function")
-
+    pass
 
 def _commit():
-    print("this is commit function")
-
+    pass
 
 def _init():
-    print("this is init function")
-
+    return True
 
 def _ps():
-    print("this is ps function")
-
+    pass
 
 def _set():
-    print("this is set function")
+    pass
 
 
 def main():
-    fire.Fire({
-        'run': _run,
-        'ls': _ls,
-        'ps': _ps,
-        'set': _set,
-        'commit': _commit,
-        'init': _init})
-
+    if len(sys.argv) == 1:
+        print_usage()
+        return False
+    available_commands = ['run', 'ls', 'ps', 'set', 'init', 'commit']
+    fire.Fire({command: eval('_' + command) for command in available_commands})
 
 if __name__ == "__main__":
     main()

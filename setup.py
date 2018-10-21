@@ -10,7 +10,6 @@ setup(
         'docker>=3.4',
         'pyyaml>=3.1',
         'fire>=0.1',
-        'request>=1.0'
     ],
 
     author="Sang Su Lee",
