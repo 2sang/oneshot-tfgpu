@@ -19,8 +19,6 @@ def test_update_conf():
 
 
 def test_available_tags():
-    tags = utils.load_available_tags()
-    assert type(tags) == list
-    assert 'nightly-devel-py3' in tags
-    assert 'latest' in tags
-    assert '1.11.0-rc2-devel-gpu-py3' in tags
+    tags_by_version = utils.load_available_tags_by_version()
+    assert type(tags_by_version) == dict
+    assert type(tags_by_version['latest']) == list

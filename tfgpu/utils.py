@@ -56,9 +56,9 @@ def update_conf(config_dict, yaml_path='./conf.yaml'):
 
 
 # HARDCODED web scrapying script, should refactor somehow..
-def load_available_tags():
+def load_tags_from_dockerhub(url):
     available_tags = []
-    page = requests.get(tensorflow_repository_url)
+    page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
     m1 = list(soup.body.div.main.children)[1]
     m2 = list(m1.children)[1]
@@ -68,6 +68,15 @@ def load_available_tags():
     for m in m5:
         available_tags.append(m.div.contents[0])
     return available_tags
+
+
+def load_available_tags_by_version():
+    available_tags = load_tags_from_dockerhub(tensorflow_repository_url)
+    version_strings = {tag.split('-')[0] for tag in available_tags}
+    available_tags_by_version = {version: [] for version in version_strings}
+    for tag in available_tags:
+        available_tags_by_version[tag.split('-')[0]].append(tag)
+    return available_tags_by_version
 
 
 def ask_init(conf):
