@@ -92,12 +92,7 @@ def image_name_duplicated(name):
 
 # hashable by 'image name'
 def add_image_to_conf(image_name, image_conf):
-    conf = load_conf()
-    new_conf = copy.deepcopy(conf)
-    images_dict = copy.deepcopy(new_conf['images'])
-    images_dict[image_name] = image_conf
-    new_conf['images'] = copy.deepcopy(images_dict)
-    new_conf['general']['num_images'] += 1
-    print(conf)
-    print(new_conf)
-    #update_conf(new_conf, 'test.yaml')
+    conf = copy.deepcopy(load_conf())
+    conf['images'][image_name] = image_conf
+    conf['general']['num_images'] += 1
+    update_conf(conf, 'test.yaml')
