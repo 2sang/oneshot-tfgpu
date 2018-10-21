@@ -4,6 +4,7 @@ from __future__ import print_function
 
 import glob
 import logging
+import os
 import sys
 
 import docker
@@ -44,6 +45,7 @@ def _commit():
 
 def _init():
     tfgpu.cli.init.create_new_image_prompt()
+    return True
 
 
 def _ps():
@@ -58,6 +60,8 @@ def main():
     if len(sys.argv) == 1:
         utils.print_usage()
         return False
+    if not os.path.exists('conf.yaml'):
+        utils.recreate_conf()
     available_commands = ['run', 'ls', 'ps', 'set', 'init', 'commit']
     fire.Fire({command: eval('_' + command) for command in available_commands})
 

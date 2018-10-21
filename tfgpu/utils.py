@@ -1,3 +1,4 @@
+import copy
 import glob
 import os
 from os.path import dirname, basename, isfile
@@ -39,12 +40,19 @@ def remove_line_from_file(filepath, line):
 
 def load_conf(yaml_path='./conf.yaml'):
     with open(yaml_path, 'r') as f:
-        return dict(yaml.load(f))
+        yaml_dict = yaml.load(f)
+    return yaml_dict
 
 
 def update_conf(config_dict, yaml_path='./conf.yaml'):
     with open(yaml_path, 'w') as f:
         yaml.dump(config_dict, f, default_flow_style=False)
+    return True
+
+
+def recreate_conf():
+    d = {'general': {'num_images': 0}, 'images': {'image_name': 'properties'}}
+    update_conf(d)
 
 
 # HARDCODED web scrapying script, should refactor somehow..
@@ -82,11 +90,14 @@ def image_name_duplicated(name):
         return True
 
 
-def add_image_to_conf(image_conf):
+# hashable by 'image name'
+def add_image_to_conf(image_name, image_conf):
     conf = load_conf()
-    images_list = conf['images']
-    for key, value in image_conf.items():
-        image_conf[key] = value
-    conf['images'] = image_conf
-    conf['general']['num_images'] += 1
-    return conf
+    new_conf = copy.deepcopy(conf)
+    images_dict = copy.deepcopy(new_conf['images'])
+    images_dict[image_name] = image_conf
+    new_conf['images'] = copy.deepcopy(images_dict)
+    new_conf['general']['num_images'] += 1
+    print(conf)
+    print(new_conf)
+    #update_conf(new_conf, 'test.yaml')

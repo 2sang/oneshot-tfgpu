@@ -64,17 +64,18 @@ def ask_others():
         },
     ]
     answer = prompt(questions, style=custom_style_1)
-    return answer
+    image_name = answer['image_name']
+    del answer['image_name']
+    return image_name, answer
 
 
 def ask_questions():
     tag = ask_tag()
-    image_conf = ask_others()
+    image_name, image_conf = ask_others()
     image_conf['tag'] = tag
-    return image_conf
+    return image_name, image_conf
 
 
 def create_new_image_prompt():
-    image_conf = ask_questions()
-    conf = utils.add_image_to_conf(image_conf)
-    utils.update_conf(conf)
+    image_name, image_conf = ask_questions()
+    utils.add_image_to_conf(image_name, image_conf)
