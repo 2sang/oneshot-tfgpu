@@ -4,32 +4,46 @@ from __future__ import print_function
 
 import glob
 import logging
-from os.path import dirname, basename, isfile
 import sys
 
 import docker
 import fire
 
-from tfgpu.cli import *
-import tfgpu.exceptions as exep
 import tfgpu.utils as utils
 
 
-class Command:
-
-    def __init__(self, argv=None):
-        pass
+def _run():
+    print("this is run function")
 
 
-def execute(commands):
-    if not commands:
-        print("will run default command")
-    modules_dict = utils.load_modules_dict()
-    return eval(modules_dict[commands]).main()
+def _ls():
+    print("this is ls function")
+
+
+def _commit():
+    print("this is commit function")
+
+
+def _init():
+    print("this is init function")
+
+
+def _ps():
+    print("this is ps function")
+
+
+def _set():
+    print("this is set function")
 
 
 def main():
-    fire.Fire(execute)
+    fire.Fire({
+        'run': _run,
+        'ls': _ls,
+        'ps': _ps,
+        'set': _set,
+        'commit': _commit,
+        'init': _init})
 
 
 if __name__ == "__main__":
