@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 import tfgpu.utils as utils
 
@@ -16,6 +17,8 @@ def test_update_conf():
     utils.update_conf(pseudo_conf, test_yaml_path)
     updated_conf = utils.load_conf(test_yaml_path)
     assert updated_conf == pseudo_conf
+    os.remove(test_yaml_path)
+    assert not os.path.exists(test_yaml_path)
 
 
 def test_available_tags():

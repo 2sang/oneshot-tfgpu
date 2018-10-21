@@ -79,17 +79,5 @@ def load_available_tags_by_version():
     return available_tags_by_version
 
 
-def ask_init(conf):
-
-    questions = {
-        'tag': 'Tag?',
-        'attached_volume': 'Name of the docker volume to mount?',
-        'host_mountpath': 'Host mountpath?',
-        'container_mountpath': 'Container mountpath?',
-        'local_port': 'local port to access notebook?',
-        'jupyter_port': 'notebook port?'
-    }
-
-    default_config = conf['images']['default']
-    new_config = {}
-
+def print_usage():
+    print("Usage: tfgpu <command> <options>")

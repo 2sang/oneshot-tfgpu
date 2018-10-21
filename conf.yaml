@@ -1,14 +1,12 @@
 general:
     initialized: False
-    mounted_image: default
+    current_image: default
     num_images: 1
 images:
     default:
-        repository: tensorflow/tensorflow 
         # See all available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
         tag: latest-gpu-py3 
         attached_volume: tfgpu-volume
         host_mountpath: ~/
         container_mountpath: /notebooks
         local_port: 9206
-        jupyter_port: 8888
