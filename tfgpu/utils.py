@@ -10,14 +10,6 @@ from bs4 import BeautifulSoup
 tensorflow_repository_url =\
     'https://hub.docker.com/r/tensorflow/tensorflow/tags/'
 
-init_questions = {
-    'tag': 'Tag?',
-    'attached_volume': 'Name of the docker volume to mount?',
-    'host_mountpath': 'Host mountpath?',
-    'container_mountpath': 'Container mountpath?',
-    'local_port': 'local port to access notebook?',
-    'jupyter_port': 'notebook port?'
-}
 
 def line_exists_in_file(filepath, line):
     with open(filepath, 'r') as f:
@@ -56,6 +48,7 @@ def update_conf(config_dict, yaml_path='./conf.yaml'):
 
 
 # HARDCODED web scrapying script, should refactor somehow..
+# Todo: Add last updated information of each tag also.
 def load_tags_from_dockerhub(url):
     available_tags = []
     page = requests.get(url)
@@ -81,3 +74,19 @@ def load_available_tags_by_version():
 
 def print_usage():
     print("Usage: tfgpu <command> <options>")
+
+
+def image_name_duplicated(name):
+    conf = load_conf(yaml_path='./conf.yaml')
+    if name in conf.keys():
+        return True
+
+
+def add_image_to_conf(image_conf):
+    conf = load_conf()
+    images_list = conf['images']
+    for key, value in image_conf.items():
+        image_conf[key] = value
+    conf['images'] = image_conf
+    conf['general']['num_images'] += 1
+    return conf

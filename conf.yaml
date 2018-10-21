@@ -1,12 +1,5 @@
+# Please do not modify this file manually.
 general:
-    initialized: False
-    current_image: default
-    num_images: 1
+    current_image: None
+    num_images: 0
 images:
-    default:
-        # See all available tags at: https://hub.docker.com/r/tensorflow/tensorflow/tags/
-        tag: latest-gpu-py3 
-        attached_volume: tfgpu-volume
-        host_mountpath: ~/
-        container_mountpath: /notebooks
-        local_port: 9206

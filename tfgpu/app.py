@@ -10,9 +10,9 @@ import docker
 import fire
 from PyInquirer import prompt
 
-from tfgpu.prompt_styles import custom_style_1, custom_style_2, custom_style_3
+import tfgpu.cli
 import tfgpu.utils as utils
-import tfgpu.cli as cli
+from tfgpu.prompts import custom_style_1, custom_style_2, custom_style_3
 
 
 __version__ = '0.0.1'
@@ -22,16 +22,15 @@ PY3 = sys.version_info[0] >= 3
 
 def check_initialized():
     conf = utils.load_conf()
-    return conf['general']['initialized']
+    return int(conf['general']['num_images']) != 0
 
 
 def _run(image_name='default'):
     if not check_initialized():
-        return True
-        # return _init()
+        return _init()
 
     docker_client = docker.from_env()
-    cli.run.run_container(image_name)
+    tfgpu.cli.run.run_container(image_name, docker_client)
     return True
 
 
@@ -44,7 +43,7 @@ def _commit():
 
 
 def _init():
-    cli.init.create_new_image_prompt()
+    tfgpu.cli.init.create_new_image_prompt()
 
 
 def _ps():

@@ -1,3 +1,10 @@
+from PyInquirer import prompt
+
+from tfgpu.prompts import custom_style_1, custom_style_2, custom_style_3
+import tfgpu.utils as utils
+import names
+
+
 def ask_tag():
     print("We're loading available tags from Dockerhub, please wait...")
     available_tags_by_version = utils.load_available_tags_by_version()
@@ -20,9 +27,17 @@ def ask_tag():
     return answer['tag']
 
 
-def create_new_image_prompt():
-    selected_tag = ask_tag()
+def ask_others():
+    image_name = names.get_first_name()
+    while utils.image_name_duplicated(image_name):
+        image_name = names.get_first_name(gender='female')
     questions = [
+        {
+            'type': 'input',
+            'name': 'image_name',
+            'message': 'image name to use:',
+            'default': image_name
+        },
         {
             'type': 'input',
             'name': 'host_mountpath',
@@ -49,8 +64,17 @@ def create_new_image_prompt():
         },
     ]
     answer = prompt(questions, style=custom_style_1)
-    return True
+    return answer
 
-    default_config = conf['images']['default']
-    new_config = {}
-    utils.update_conf()
+
+def ask_questions():
+    tag = ask_tag()
+    image_conf = ask_others()
+    image_conf['tag'] = tag
+    return image_conf
+
+
+def create_new_image_prompt():
+    image_conf = ask_questions()
+    conf = utils.add_image_to_conf(image_conf)
+    utils.update_conf(conf)
