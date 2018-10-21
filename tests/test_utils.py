@@ -23,10 +23,10 @@ def test_available_tags():
     assert type(tags) == list
     assert 'nightly-devel-py3' in tags
     assert 'latest' in tags
-    assert '1.9.0-rc2-devel-gpu-py3' in tags
+    assert '1.11.0-rc2-devel-gpu-py3' in tags
 
 
-def test_cli_modules_string():
-    module_names, commands = utils.cli_module_strings()
-    assert '_run.py' in module_names
-    assert 'run' in commands
+def test_load_modules_dict():
+    modules_dict = utils.load_modules_dict()
+    assert 'run' in modules_dict.keys()
+    assert '_run' in modules_dict.values()

@@ -67,15 +67,15 @@ def update_conf(config_dict, yaml_path='./conf.yaml'):
         yaml.dump(config_dict, f, default_flow_style=False)
 
 
-def cli_module_strings():
+def load_modules_dict():
     module_names = glob.glob(dirname(__file__) + "/cli/*.py")
-    commands = {basename(f)[1:-3]: eval(basename(f)[:-3])
-                for f in module_names
-                if isfile(f) and not f.endswith('__init__.py')}
-    return module_names, commands
+    modules_dict = {basename(f)[1:-3]: basename(f)[:-3]
+                    for f in module_names
+                    if isfile(f) and not f.endswith('__init__.py')}
+    return modules_dict
 
 
-# HARDCODED web scrapying script, should refactor somehow
+# HARDCODED web scrapying script, should refactor somehow..
 def load_available_tags():
     available_tags = []
     page = requests.get(tensorflow_repository_url)

@@ -8,6 +8,7 @@ from os.path import dirname, basename, isfile
 import sys
 
 import docker
+import fire
 
 from tfgpu.cli import *
 import tfgpu.exceptions as exep
@@ -20,11 +21,15 @@ class Command:
         pass
 
 
+def execute(commands):
+    if not commands:
+        print("will run default command")
+    modules_dict = utils.load_modules_dict()
+    return eval(modules_dict[commands]).main()
+
+
 def main():
-    if len(sys.argv) == 1:
-        raise exep.CommandNotSpecified
-    command = Command(sys.argv[1:])
-    command.execute()
+    fire.Fire(execute)
 
 
 if __name__ == "__main__":

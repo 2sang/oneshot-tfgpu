@@ -26,8 +26,14 @@ def ask_init(conf):
     new_config = {}
 
 
-def main(cli_args, testmode=False):
+def main(cli_args=None, testmode=False):
+    if not cli_args:
+        print("run default container")
+        return True
     conf = utils.load_conf()
+    """
     if not initialized(conf) and not testmode:
         ask_init(conf)
+    return True
+    """
     return True
